@@ -36,7 +36,7 @@ public class Shell {
         while (h >= 1) {
             for (int i = h; i < N; i++) {
                 // 将a[i]插入到a[i-h],a[i-2h],a[i-3h]的序列中
-                for (int j = i; j > 0 ; j-=h) {
+                for (int j = i; j >= h ; j-=h) {
                     if (greater(a[j - h], a[j])) {
                         exch(a, j - h, j);
                     } else {
