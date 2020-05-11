@@ -10,6 +10,7 @@ package com.jenkin.algorithm.sort;
  *  是1为止。
  *  2、将相邻的两个子组进行合并成一个有序的大组。
  *  3、不断的重复步骤2，直到最终只有一个组为止。
+ *  {8, 4, 5, 7, 1, 3, 6, 2}
  */
 public class Merge {
 
@@ -20,7 +21,10 @@ public class Merge {
      * @param a
      */
     public static void sort(Comparable[] a) {
-
+        assist = new Comparable[a.length];
+        int lo = 0;
+        int hi = a.length - 1;
+        sort(a, lo, hi);
     }
 
     /**
@@ -30,7 +34,14 @@ public class Merge {
      * @param hi
      */
     private static void sort(Comparable[] a, int lo, int hi) {
+        if (hi <= lo) {
+            return;
+        }
 
+        int mid = lo + (hi - lo) /2;
+        sort(a, lo, mid);
+        sort(a, mid + 1, hi);
+        merge(a, lo, mid, hi);
     }
 
     /**
@@ -42,6 +53,32 @@ public class Merge {
      * @param hi
      */
     private static void merge(Comparable[] a, int lo, int mid, int hi) {
+        //  定义3个指针
+        int assistIndex = lo;// 指向assit数组中开始填充数据的索引
+        int loIndex = lo;// 指向第一组数据中的第一个元素
+        int hiIndex = mid + 1;// 指向第二组数据中的第一个元素
+
+        // 比较左边组和右边组的元素，哪个小就将哪个数据插入到assist数组中
+        while (loIndex <= mid && hiIndex <= hi) {
+            if (less(a[loIndex], a[hiIndex])) {
+                assist[assistIndex++] = a[loIndex++];
+            } else {
+                assist[assistIndex++] = a[hiIndex++];
+            }
+        }
+
+        // 上面循环结束，表示有一边的数据已经全部填充到assist数组中，将剩下的另一组的数据依次填充到assist数组中
+        while (loIndex <= mid) {
+            assist[assistIndex++] = a[loIndex++];
+        }
+        while (hiIndex <= hi) {
+            assist[assistIndex++] = a[hiIndex++];
+        }
+
+        // 到目前为止，assist数组中，从lo到hi的元素是有序的，再把数据拷贝到a数组中对应的索引中
+        for (int i = lo; i <= hi; i++) {
+            a[i] = assist[i];
+        }
 
     }
 
@@ -52,6 +89,9 @@ public class Merge {
      * @return
      */
     private static boolean less(Comparable v, Comparable w) {
+        if (v.compareTo(w) < 0) {
+            return true;
+        }
         return false;
     }
 
