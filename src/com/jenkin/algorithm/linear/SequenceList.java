@@ -59,8 +59,9 @@ public class SequenceList<T> implements Iterable {
      * @param t
      */
     public void insert(T t) {
+
         if (N == eles.length) {
-            throw new RuntimeException("当前列表已满！");
+            resize(2 * eles.length);
         }
         eles[N++] = t;
     }
@@ -77,6 +78,10 @@ public class SequenceList<T> implements Iterable {
 
         if (i < 0 || i > N) {
             throw new RuntimeException("插入的位置不合法！");
+        }
+
+        if (N == eles.length) {
+            resize( 2 * eles.length);
         }
         // 将i位置空出来，i-1后面的元素都向后移动一位
         for (int index = N; index > i; index--) {
@@ -106,6 +111,10 @@ public class SequenceList<T> implements Iterable {
             eles[index] = eles[index + 1];
         }
         N--;
+
+        if (N > 0 && N <= eles.length / 4) {
+            resize(eles.length / 2);
+        }
         return result;
     }
 
@@ -137,7 +146,7 @@ public class SequenceList<T> implements Iterable {
         private int cursor;
 
         public SIterator() {
-            cursor = 0;
+            this.cursor = 0;
         }
 
         @Override
@@ -147,7 +156,24 @@ public class SequenceList<T> implements Iterable {
 
         @Override
         public Object next() {
-            return eles[cursor++];
+            return eles[this.cursor++];
         }
+    }
+
+    private void resize(int newSize) {
+        // 记录旧数组
+        T[] temp = eles;
+
+        // 创建一个容量为newSize的数组
+        eles = (T[]) new Object[newSize];
+
+        // 将temp中的数据复制到新数组中
+        for (int i = 0; i < N; i++) {
+            eles[i] = temp[i];
+        }
+    }
+
+    public int capacity() {
+        return eles.length;
     }
 }
