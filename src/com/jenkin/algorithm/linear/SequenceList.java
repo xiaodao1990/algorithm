@@ -72,9 +72,6 @@ public class SequenceList<T> implements Iterable {
      * @param t
      */
     public void insert(int i, T t) {
-        if (N == eles.length) {
-            throw new RuntimeException("当前列表已满！");
-        }
 
         if (i < 0 || i > N) {
             throw new RuntimeException("插入的位置不合法！");
