@@ -116,6 +116,37 @@ public class LinkList<T> implements Iterable<T> {
         return -1;
     }
 
+    /**
+     * 对整个链表进行反转
+     * 原链表中数据为：1--2--3--4
+     * 反转后链表的数据为：4--3--2--1
+     *
+     * 第四次递归结果：head-->4-->null
+     * 第三次递归结果：head-->4-->3-->null
+     * 第二次递归结果：head-->4-->3-->2-->null
+     * 第一次递归结果：head-->4-->3-->2-->1-->null
+     */
+    public void reverse() {
+        if (N == 0) {
+            return;
+        }
+        reverse(head.next);// 1
+    }
+
+    private Node reverse(Node node) {
+        if (node.next == null) {// 表示当前结点为尾结点
+            head.next = node;
+            return node;
+        }
+
+        // head--4
+        // head--4
+        Node newPre = reverse(node.next);
+        newPre.next = node;
+        node.next = null;
+        return node;
+    }
+
 
 
     private class Node {

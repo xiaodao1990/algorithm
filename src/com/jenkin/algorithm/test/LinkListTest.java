@@ -16,16 +16,17 @@ public class LinkListTest {
         for (String s : list) {
             System.out.println(s);
         }
-        System.out.println(list.length());
-        System.out.println("-------------------");
-        //测试get方法
-        System.out.println(list.get(2));
-        System.out.println("------------------------");
-        //测试remove方法
-        String remove = list.remove(3);
-        System.out.println(remove);
-        System.out.println(list.length());
+//        System.out.println(list.length());
+//        System.out.println("-------------------");
+//        //测试get方法
+//        System.out.println(list.get(2));
+//        System.out.println("------------------------");
+//        //测试remove方法
+//        String remove = list.remove(3);
+//        System.out.println(remove);
+//        System.out.println(list.length());
         System.out.println("----------------");;
+        list.reverse();
         for (String s : list) {
             System.out.println(s);
         }
