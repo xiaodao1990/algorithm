@@ -162,6 +162,48 @@ public class BinaryTree<Key extends Comparable, Value> {
         return x;
     }
 
+    /**
+     * 找出整个树中最小的键
+     * @return
+     */
+    public Key min() {
+        return min(root).key;
+    }
+
+    /**
+     * 找出指定树x中最小键所在的结点
+     * @param x
+     * @return
+     */
+    private Node min(Node x) {
+        if (x.left != null) {
+            return min(x.left);
+        } else {
+            return x;
+        }
+    }
+
+    /**
+     * 找出树中的最大的键
+     * @return
+     */
+    public Key max() {
+        return max(root).key;
+    }
+
+    /**
+     * 找出指定树x中，最大键所在的结点
+     * @param x
+     * @return
+     */
+    private Node max(Node x) {
+        if (x.right != null) {
+            return max(x.right);
+        } else {
+            return x;
+        }
+    }
+
 
     private class Node {
         // 存储健
