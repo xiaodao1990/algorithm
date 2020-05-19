@@ -185,7 +185,7 @@ public class IndexMinPriorityQueue<T extends Comparable<T>> {
      * @param k
      * @return
      */
-    private boolean contains(int k) {
+    public boolean contains(int k) {
         return qp[k] != -1;
     }
 
