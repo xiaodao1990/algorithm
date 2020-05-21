@@ -292,6 +292,31 @@ public class BinaryTree<Key extends Comparable, Value> {
         return keys;
     }
 
+    /**
+     * 计算整个树的最大深度
+     * @return
+     */
+    public int maxDepth() {
+        return maxDepth(root);
+    }
+
+    private int maxDepth(Node x) {
+        if (x == null) {
+            return 0;
+        }
+
+        int max = 0;
+        int maxL = 0;
+        int maxR = 0;
+
+        // 计算左子树的最大深度
+        maxL = maxDepth(x.left);
+        maxR = maxDepth(x.right);
+
+        max = maxL >= maxR ? maxL + 1: maxR + 1;
+        return max;
+    }
+
 
     private class Node {
         // 存储健
