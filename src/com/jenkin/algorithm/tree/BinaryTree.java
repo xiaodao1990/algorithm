@@ -1,5 +1,7 @@
 package com.jenkin.algorithm.tree;
 
+import com.jenkin.algorithm.linear.Queue;
+
 /**
  * 二叉树就是度不超过2的树
  * 满二叉树：一个二叉树，如果每一层的结点数都达到最大值，则这个二叉树就是满二叉树。
@@ -202,6 +204,92 @@ public class BinaryTree<Key extends Comparable, Value> {
         } else {
             return x;
         }
+    }
+
+    /**
+     * 使用前序遍历，获取整个树中的所有键
+     * @return
+     */
+    public Queue<Key> preErgodic() {
+        Queue<Key> keys = new Queue<>();
+        preErgodic(root, keys);
+        return keys;
+    }
+
+    private void preErgodic(Node x, Queue<Key> keys) {
+        if (x == null) {
+            return;
+        }
+
+        keys.enqueue(x.key);
+        preErgodic(x.left, keys);
+        preErgodic(x.right, keys);
+    }
+
+    /**
+     * 使用中序遍历，获取整个树中的所有键
+     * @return
+     */
+    public Queue<Key> midErgodic() {
+        Queue<Key> keys = new Queue<>();
+        preErgodic(root, keys);
+        return keys;
+    }
+
+    private void midErgodic(Node x, Queue<Key> keys) {
+        if (x == null) {
+            return;
+        }
+
+        midErgodic(x.left, keys);
+        keys.enqueue(x.key);
+        midErgodic(x.right, keys);
+    }
+
+    /**
+     * 使用后序遍历，获取整个树中的所有键
+     * @return
+     */
+    public Queue<Key> afterErgodic() {
+        Queue<Key> keys = new Queue<>();
+        afterErgodic(root, keys);
+        return keys;
+    }
+
+    private void afterErgodic(Node x, Queue<Key> keys) {
+        if (x == null) {
+            return;
+        }
+
+        afterErgodic(x.left, keys);
+        afterErgodic(x.right, keys);
+        keys.enqueue(x.key);
+    }
+
+    /**
+     * 使用层序遍历，获取整个树中的所有键--层序遍历不可能使用递归
+     * @return
+     */
+    public Queue<Key> layerErgodic() {
+        Queue<Key> keys = new Queue<>();
+        Queue<Node> nodes = new Queue<>();
+
+        // 第一步将root结点放入队列
+        nodes.enqueue(root);
+        while (!nodes.isEmpty()) {
+            Node x = nodes.dequeue();
+            keys.enqueue(x.key);
+
+            if (x.left != null) {
+                nodes.enqueue(x.left);
+            }
+
+            if (x.right != null) {
+                nodes.enqueue(x.right);
+            }
+        }
+
+        return keys;
     }
 
 
